@@ -1,20 +1,7 @@
 # Order System App
 
 # Setup
-> 1. You can edit database connection in db/db.config.js
-```
-  HOST: 'localhost',
-  USER: 'postgres',
-  PASSWORD: '123456',
-  DB: 'assignment',
-  dialect: 'postgres',
-  pool: {
-    max: 5,
-    min: 0,
-    acquire: 30000,
-    idle: 10000
-  }
-```
+> 1. You can edit database connection in file .env
 > 2. Run creation_script.sql in scripts in your local database
 
 # Usage

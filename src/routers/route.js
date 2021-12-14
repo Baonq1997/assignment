@@ -25,11 +25,9 @@ module.exports = () => {
 		}
 	});
 
-	console.log("route.js");
 	// All API imports go here.
 	routeFiles.forEach((file) => {
 		require(`./api/${file}`)(router);
 	});
-	console.log("end route.js");
 	return router;
 };
