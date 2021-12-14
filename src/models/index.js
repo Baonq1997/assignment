@@ -29,17 +29,14 @@ fs
     db[model.name] = model;
   });
 
-// product 1:N order items
 db['product'].hasMany(db['order_items']);
 db['order_items'].belongsTo(db['product']);
 
-// order details 1: N order_items
 db['order_details'].hasMany(db['order_items'], {
   foreignKey: 'order_id'
 });
 db['order_items'].belongsTo(db['order_details']);
 
-// user 1:N order details
 db['user_account'].hasMany(db['order_details'], {
   foreignKey: 'user_id'
 });

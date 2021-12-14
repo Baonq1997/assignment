@@ -1,8 +1,12 @@
 const { user_account: UserAccount } = require("../models/index");
-const config = require("../config/auth.config");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
 
+/**
+ * 
+ * @param {*} user 
+ * @returns 
+ */
 const signUp = async (user) => {
 	try {
 		user.password = await bcrypt.hash(user.password, 8);
@@ -37,7 +41,7 @@ const signIn = async ({ email, password }) => {
 	}
 
 	// generate JWT token
-	const token = jwt.sign({ email: user.email }, config.secret, {
+	const token = jwt.sign({ email: user.email }, process.env.SECRET, {
 		expiresIn: 86400, // 24 hours
 	});
 
