@@ -8,7 +8,7 @@ const path = require('path');
 const app = express();
 
 app.use(express.json());
-app.use('/secure/', router());
+app.use('/',router());
 
 // db.sequelize.sync();
 const config = {
@@ -21,9 +21,4 @@ app.listen(config.express.port, () => {
   console.log(`Server running on port ${config.express.port}`)
 })
 
-// const server = app.listen(config.express.port, () => {
-//   const host = server.address().address;
-//   const port = server.address().port;
-//   console.log(`Server Started at ${host}${port}`);
-// });
 module.exports = app;

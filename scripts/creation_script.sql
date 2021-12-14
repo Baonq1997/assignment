@@ -21,14 +21,12 @@ create table if not exists product (
 		quantity integer,
 		price numeric
 );
-select * from product;
 insert into product(product_name, quantity, price) values ('Product1', 5, 10.0);
 insert into product(product_name, quantity, price) values ('Product2', 10, 20.0);
 insert into product(product_name, quantity, price) values ('Product3', 3, 30.0);
 insert into product(product_name, quantity, price) values ('Product4', 7, 40.0);
 insert into product(product_name, quantity, price) values ('Product5', 7, 40.5);
 
-drop table order_details cascade ;
 create table order_details(
     id serial
 			primary key,
