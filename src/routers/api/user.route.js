@@ -14,7 +14,7 @@ module.exports = function (router) {
 	router.post("/user/login", async (req, res) => {
 		try {
 			const user = await userController.signIn(req.body);
-			res.status(200).send(user.token);
+			res.status(200).send(user);
 		} catch (error) {
 			console.error(error);
 			res.status(400).send(error);

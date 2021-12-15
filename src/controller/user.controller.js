@@ -3,9 +3,9 @@ const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
 
 /**
- * 
- * @param {*} user 
- * @returns 
+ * Register user to system with encrypted password
+ * @param {object} user - User information
+ * @returns user information
  */
 const signUp = async (user) => {
 	try {
@@ -13,22 +13,25 @@ const signUp = async (user) => {
 		const result = await UserAccount.create(user);
 		return result;
 	} catch (err) {
-		console.debug(err);
+		console.error(err);
 		throw new Error({ error: "Can not create user" });
 	}
 };
 
 const findUserByEmail = async (email) => {
-	const user = await UserAccount.findOne({
+	return  await UserAccount.findOne({
 		where: {
 			email,
 		},
 		raw: true,
 	});
-
-	return user;
 };
 
+/**
+ * Returns valid user with token
+ * @param {object} user - user's email and password
+ * @returns user information with token
+ */
 const signIn = async ({ email, password }) => {
 	const user = await findUserByEmail(email);
 	if (!user) {

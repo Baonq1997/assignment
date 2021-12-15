@@ -8,6 +8,9 @@ const { user_account: User } = require("../models/index");
 const routeFiles = fs.readdirSync(path.join(__dirname + "/api"));
 
 module.exports = () => {
+	/**
+	 * Entry point for all API that need to be secured
+	 */
 	router.use("/api", async (req, res, next) => {
 		try {
 			const token = req.header("Authorization").replace("Bearer ", "");
@@ -20,6 +23,7 @@ module.exports = () => {
 			req.token = token;
 			next();
 		} catch (error) {
+			console.log(error);
 			res.status(401).send({ error: "Not authorized to access this resource" });
 		}
 	});

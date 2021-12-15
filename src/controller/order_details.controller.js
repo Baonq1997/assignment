@@ -6,13 +6,24 @@ const {
 
 const productController = require("./product.controller");
 
+/**
+ *	Order remaining products in inventory.
+ * @param {Array} orderedProducts - List products that are ordered
+ * @param {object} user - User create order request
+ * @returns an DTO contains Order Details, Order Items and user information
+ * @throws Exception when product is out of stock
+ */
 const orderProducts = async (orderedProducts, user) => {
 	try {
 		return sequelize.transaction(async (transaction) => {
+			const currentDate = new Date();
 			const orderDetails = await OrderDetails.create(
 				{
 					total: 0,
 					userAccountId: user.id,
+					status: 'CREATED',
+					createdDate: currentDate,
+					updatedDate: currentDate,
 				},
 				{ transaction }
 			);
@@ -27,6 +38,7 @@ const orderProducts = async (orderedProducts, user) => {
 					(item) => item.product_name === product.product_name
 				);
 
+				// Check stocks
 				if (product.quantity === 0) {
 					throw new Error(`${product.product_name} is out of stock`);
 				}
@@ -66,6 +78,13 @@ const orderProducts = async (orderedProducts, user) => {
 	}
 };
 
+/**
+ * Build DTO to response
+ * @param {object} order - Order details
+ * @param {Array} orderItems - list of ordered products
+ * @param {object} user - User sent order request
+ * @returns DTO combines 3 params
+ */
 const buildDto = (order, orderItems, user) => {
 	const data = {
 		id: order.id,
